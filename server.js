@@ -11,7 +11,7 @@ const { exec } = require('child_process');
 const app = express();
 const port = 3000;
 
-const openai = new OpenAI({ apiKey: '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' });
+const openai = new OpenAI({ apiKey: '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' });
 
 app.use(express.static('public'));
 
@@ -55,9 +55,9 @@ app.get('/displayText', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await createSummary(query);
+    const summary = await createSummary(query);
 
-    res.json({ mindMapContent });
+    res.json({ summary });
 });
 
 app.get('/keywords', async (req, res) => {
@@ -68,9 +68,9 @@ app.get('/keywords', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await createKeywords(query);
+    const keywords = await createKeywords(query);
 
-    res.json({ mindMapContent });
+    res.json({ keywords });
 });
 
 app.get('/translation', async (req, res) => {
@@ -81,9 +81,9 @@ app.get('/translation', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await createTranslation(query);
+    const translated = await createTranslation(query);
 
-    res.json({ mindMapContent });
+    res.json({ translated });
 });
 
 app.get('/definition', async (req, res) => {
@@ -94,9 +94,9 @@ app.get('/definition', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await createDefinition(query);
+    const definition = await createDefinition(query);
 
-    res.json({ mindMapContent });
+    res.json({ definition });
 });
 
 app.get('/sendTelegramNote', async (req, res) => {
@@ -107,9 +107,9 @@ app.get('/sendTelegramNote', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await sendTelegramMessage(query);
+    const messageSent = await sendTelegramMessage(query);
 
-    res.json({ mindMapContent });
+    res.send("Message saved to notes in Telegram!");
 });
 
 app.get('/readOutloud', async (req, res) => {
@@ -120,9 +120,9 @@ app.get('/readOutloud', async (req, res) => {
         return;
     }
 
-    const mindMapContent = await speakText(query);
+    const speak = await speakText(query);
 
-    res.json({ mindMapContent });
+    res.send("SPEAKING ...");
 });
 
 app.get('/search', async (req, res) => {
@@ -299,5 +299,4 @@ const fetchImages = async (searchQuery) => {
 // Usage
 // speakText("Hello, I am speaking this text out loud.");
 
-const availableVoices = say.getVoices();
-console.log(availableVoices);
+

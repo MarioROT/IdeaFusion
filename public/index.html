@@ -11,30 +11,69 @@
     }
 
   </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 <!-- Add an input field and a button -->
-<div>
-  <input type="text" id="inputFileName" placeholder="Enter file name...">
-  <button onclick="renderizeMap()">Renderize Map</button>
-  <button onclick="generateSummary()">Summarize</button>
-  <button onclick="generateKeyword()">ProduceKeywords</button>
-  <button onclick="generateTraslation()">Translate your text</button>
-  <button onclick="generateDefinition()">Explain</button>
-  <button onclick="generateTelegramNote()">Send To Telegram</button>
-  <button onclick="generateSpeak()">Read Outloud</button>
-  <button onclick="generateImages('people')">Search images</button>
-  <p id="textChat"> Hola a Todos</p>
-  <p id="summaryChat"> Hola a Todos</p>
-  <p id="keyChat"> Loading Keywords ...</p>
-  <p id="translationChat"> Loading Keywords ...</p>
-  <p id="DefinitionChat"> Loading explanation ...</p>
-  <p id="TChat"> Telegram response ...</p>
-  <p id="ReadChat"> Reading Outloud ...</p>
-  <div id="images"></div>
+<!-- <div> -->
+<!--   <input type="text" id="input-text" placeholder="Enter file name..."> -->
+<!--   <button onclick="renderizeMap()">Renderize Map</button> -->
+<!--   <button onclick="generateSummary()">Summarize</button> -->
+<!--   <button onclick="generateKeyword()">ProduceKeywords</button> -->
+<!--   <button onclick="generateTraslation()">Translate your text</button> -->
+<!--   <button onclick="generateDefinition()">Explain</button> -->
+<!--   <button onclick="generateTelegramNote()">Send To Telegram</button> -->
+<!--   <button onclick="generateSpeak()">Read Outloud</button> -->
+<!--   <button onclick="generateImages('people')">Search images</button> -->
+<!--   <p id="textChat"> Hola a Todos</p> -->
+<!--   <p id="summaryChat"> Hola a Todos</p> -->
+<!--   <p id="keyChat"> Loading Keywords ...</p> -->
+<!--   <p id="translationChat"> Loading Keywords ...</p> -->
+<!--   <p id="DefinitionChat"> Loading explanation ...</p> -->
+<!--   <p id="TChat"> Telegram response ...</p> -->
+<!--   <p id="ReadChat"> Reading Outloud ...</p> -->
+<!--   <div id="images"></div> -->
 
-</div>
+<!-- </div> -->
+
+<div id="icon-container">
+        <img src="lauzhack.webp" alt="Lauzhack Icon" />
+    </div>
+    <div id="ideafusion-container">
+        <img src="ideafusion.png" alt="IdeaFusion Icon" />
+    </div>
+    <div id="input-container">
+        <input type="text" id="input-text" placeholder="Enter text here" />
+    </div>
+    <div id="central-box" style="float:left; width:1000px; overflow-y: auto; height: 300px;">
+        <p id="display-text">Welcome! Click a button to see text here.</p>
+    </div>
+    <div id="buttons">
+        <button onclick="renderizeMap('')">Renderize Map</button>
+        <button onclick="generateSummary('')">Summarize</button>
+        <button onclick="generateKeyword('')">ProduceKeywords</button>
+        <button onclick="generateTranslation('')">Translate your text</button>
+        <button onclick="generateDefinition('')">Explain</button>
+        <button onclick="generateTelegramNote('')">Send To Telegram</button>
+        <button onclick="generateSpeak('')">Read Outloud</button>
+        <button onclick="generateImages('')">Search images</button>
+
+
+        <p id="textChat"></p>
+        <p id="summaryChat"></p>
+        <p id="keyChat"></p>
+        <p id="translationChat"></p>
+        <p id="DefinitionChat"></p>
+        <p id="TChat"></p>
+        <p id="ReadChat"></p>
+    </div>
+
+    <script>
+        function updateText(text) {
+            document.getElementById('display-text').innerText = text;
+        }
+    </script>
 
 <script type="module">
 //<script>
@@ -52,7 +91,7 @@
   // Function to renderize the map based on the user input
   window.renderizeMap = function(topic) {
 
-  const query = document.getElementById("inputFileName").value;
+  const query = document.getElementById("input-text").value;
 
     console.log(topic)
 
@@ -85,8 +124,10 @@
 
 // Function to generate mind map based on the user input
   window.generateSummary = function(topic) {
-    const query = document.getElementById("inputFileName").value;
 
+    if (topic == ""){
+    topic = document.getElementById("input-text").value;
+    }
     console.log(topic)
 
     //if (!query) {
@@ -98,10 +139,10 @@
     fetch(`/displayText?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const summary = data.summary;
 
         // Display mind map content
-        document.getElementById("summaryChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = summary;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -110,9 +151,13 @@
 
 // Function to generate keyword based on the user input
   window.generateKeyword = function(topic) {
-    const query = document.getElementById("inputFileName").value;
+    console.log("1    "+topic)
+   if (topic == ""){
+     console.log("2    "+topic)
+     topic = document.getElementById("input-text").value;
+    }
 
-    console.log(topic)
+    console.log("3  " + topic)
 
     //if (!query) {
      // alert('Please enter a query.');
@@ -123,10 +168,10 @@
     fetch(`/keywords?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const keywords = data.keywords;
 
         // Display mind map content
-        document.getElementById("keyChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = keywords;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -135,7 +180,9 @@
 
 // Function to generate keyword based on the user input
   window.generateTranslation = function(topic) {
-    const query = document.getElementById("inputFileName").value;
+   if (topic == ""){
+    topic = document.getElementById("input-text").value;
+    }
 
     console.log(topic)
 
@@ -148,10 +195,10 @@
     fetch(`/translation?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const translated = data.translated;
 
         // Display mind map content
-        document.getElementById("translationChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = translated;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -160,8 +207,9 @@
 
 // Function to generate definition based on the user input
   window.generateDefinition = function(topic) {
-    const query = document.getElementById("inputFileName").value;
-
+   if (topic == ""){
+    topic = document.getElementById("input-text").value;
+    }
     console.log(topic)
 
     //if (!query) {
@@ -173,10 +221,10 @@
     fetch(`/definition?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const definition = data.definition;
 
         // Display mind map content
-        document.getElementById("DefinitionChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = definition;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -185,8 +233,9 @@
 
 // Function to generate definition based on the user input
   window.generateTelegramNote = function(topic) {
-    const query = document.getElementById("inputFileName").value;
-
+   if (topic == ""){
+    topic = document.getElementById("input-text").value;
+    }
     console.log(topic)
 
     //if (!query) {
@@ -198,10 +247,10 @@
     fetch(`/sendTelegramNote?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const message = data;
 
         // Display mind map content
-        document.getElementById("tChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = message;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -210,8 +259,9 @@
 
 // Function to generate definition based on the user input
   window.generateSpeak = function(topic) {
-    const query = document.getElementById("inputFileName").value;
-
+   if (topic == ""){
+    topic = document.getElementById("input-text").value;
+    }
     console.log(topic)
 
     //if (!query) {
@@ -223,10 +273,10 @@
     fetch(`/readOutloud?query=${encodeURIComponent(topic)}`)
       .then(response => response.json())
       .then(data => {
-        const mindMapContent = data.mindMapContent;
+        const message = data;
 
         // Display mind map content
-        document.getElementById("ReadChat").innerText = mindMapContent;
+        document.getElementById("display-text").innerText = message;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -235,8 +285,9 @@
 
 // Function to generate definition based on the user input
   window.generateImages = function(topic) {
-    const query = document.getElementById("inputFileName").value;
-
+   if (topic == ""){
+   topic = document.getElementById("input-text").value;
+    }
     console.log(topic)
 
     //if (!query) {
@@ -247,7 +298,7 @@
     fetch(`/search?query=${encodeURIComponent(topic)}`)
         .then(response => response.json())
         .then(urls => {
-          const imagesDiv = document.getElementById('images');
+          const imagesDiv = document.getElementById('central-box');
           urls.forEach(url => {
             const img = document.createElement('img');
             img.src = url;
@@ -272,7 +323,7 @@
         window[functionName](...params);
     }
 </script>
-<script src="bundle.js"></script>
+<!-- <script src="bundle.js"></script> -->
 </body>
 </html>
 
