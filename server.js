@@ -11,7 +11,7 @@ const { exec } = require('child_process');
 const app = express();
 const port = 3000;
 
-const openai = new OpenAI({ apiKey: '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' });
+const openai = new OpenAI({ apiKey: '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' });
 
 app.use(express.static('public'));
 
@@ -75,6 +75,7 @@ app.get('/keywords', async (req, res) => {
 
 app.get('/translation', async (req, res) => {
     const query = req.query.query;
+    console.log("hallo" + query)
 
     if (!query) {
         res.status(400).json({ error: 'Please provide a query.' });
@@ -229,6 +230,7 @@ async function createKeywords(query) {
 }
 
 async function createTranslation(query) {
+console.log(query)
 
   const prompt = `Translate the following text ${query} to french`;
 

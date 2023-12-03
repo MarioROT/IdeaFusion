@@ -58,7 +58,7 @@
         <button onclick="generateTelegramNote('')">Send To Telegram</button>
         <button onclick="generateSpeak('')">Read Outloud</button>
         <button onclick="generateImages('')">Search images</button>
-
+        <button onclick="openMindmap()">Mind-map</button>
 
         <p id="textChat"></p>
         <p id="summaryChat"></p>
@@ -102,7 +102,7 @@
     //}
 
     // Send a request to the server endpoint with the query parameter
-    fetch(`http://localhost:3000/generate-mindmap?query=${encodeURIComponent(topic)}`) 
+    fetch(`generate-mindmap?query=${encodeURIComponent(topic)}`) 
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -310,6 +310,12 @@
       });
 
   };
+
+  window.openMindmap =function () {
+        //var inputText = getInputText();
+       // console.log('User Input:', inputText);
+        window.open('http://localhost:8080/', '_blank'); // Opens in a new tab
+        }
 
 // Check for parameters in the URL and execute the function
     const urlParams = new URLSearchParams(window.location.search);
