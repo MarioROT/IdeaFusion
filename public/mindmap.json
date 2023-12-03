@@ -1,0 +1,72 @@
+{
+  "label": "Math",
+  "annotations": [
+    {
+      "url": "https://www.mathsisfun.com/",
+      "attrs": {
+        "fill": "#007BFF",
+        "cursor": "pointer",
+        "text-decoration": "underline",
+        "event": "element:url:pointerdown",
+        "data-url": "https://www.mathsisfun.com/"
+      },
+      "start": 58,
+      "end": 62
+    }
+  ],
+  "image": "assets/Math.svg",
+  "children": [
+    {
+      "label": "Arithmetic",
+      "userColor": "red",
+      "image": "assets/Arithmetic.svg",
+      "direction": "R",
+      "children": [
+        { "label": "Addition" },
+        { "label": "Subtraction" },
+        { "label": "Multiplication" },
+        { "label": "Division" },
+        { "label": "Fractions" }
+      ]
+    },
+    {
+      "label": "Algebra",
+      "userColor": "green",
+      "image": "assets/Algebra.svg",
+      "direction": "R",
+      "children": [
+        { "label": "Equations" },
+        { "label": "Inequalities" },
+        { "label": "Polynomials" },
+        { "label": "Functions" },
+        { "label": "Graphing" }
+      ]
+    },
+    {
+      "label": "Geometry",
+      "userColor": "blue",
+      "image": "assets/Geometry.svg",
+      "direction": "L",
+      "children": [
+        { "label": "Lines and Angles" },
+        { "label": "Polygons" },
+        { "label": "Circles" },
+        { "label": "Triangles" },
+        { "label": "Quadrilaterals" }
+      ]
+    },
+    {
+      "label": "Statistics",
+      "userColor": "purple",
+      "image": "assets/Statistics.svg",
+      "direction": "L",
+      "children": [
+        { "label": "Data Analysis" },
+        { "label": "Probability" },
+        { "label": "Charts" },
+        { "label": "Sampling" },
+        { "label": "Hypothesis Testing" }
+      ]
+    }
+  ]
+}

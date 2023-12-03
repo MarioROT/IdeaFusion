@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "label": "Central Node",
+      "id": 1
+    },
+    {
+      "label": "Layer 1 - Node 1",
+      "id": 2
+    },
+    {
+      "label": "Layer 1 - Node 2",
+      "id": 3
+    },
+    {
+      "label": "Layer 2 - Node 1",
+      "id": 4
+    },
+    {
+      "label": "Layer 2 - Node 2",
+      "id": 5
+    },
+    {
+      "label": "Layer 2 - Node 3",
+      "id": 6
+    },
+    {
+      "label": "Layer 3 - Node 1",
+      "id": 7
+    },
+    {
+      "label": "Layer 3 - Node 2",
+      "id": 8
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 2
+    },
+    {
+      "source": 1,
+      "target": 3
+    },
+    {
+      "source": 2,
+      "target": 4
+    },
+    {
+      "source": 2,
+      "target": 5
+    },
+    {
+      "source": 3,
+      "target": 6
+    },
+    {
+      "source": 4,
+      "target": 7
+    },
+    {
+      "source": 4,
+      "target": 8
+    }
+  ]
+}
+

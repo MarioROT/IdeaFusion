@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Add an input field and a button -->
+<div>
+  <input type="text" id="inputFileName" placeholder="Enter file name...">
+  <button onclick="renderizeMap()">Renderize Map</button>
+  <button onclick="generateSummary()">Summarize</button>
+  <button onclick="generateKeyword()">ProduceKeywords</button>
+  <button onclick="generateTraslation()">Translate your text</button>
+  <button onclick="generateDefinition()">Explain</button>
+  <button onclick="generateTelegramNote()">Send To Telegram</button>
+  <button onclick="generateSpeak()">Read Outloud</button>
+  <button onclick="generateImages('people')">Search images</button>
+  <p id="textChat"> Hola a Todos</p>
+  <p id="summaryChat"> Hola a Todos</p>
+  <p id="keyChat"> Loading Keywords ...</p>
+  <p id="translationChat"> Loading Keywords ...</p>
+  <p id="DefinitionChat"> Loading explanation ...</p>
+  <p id="TChat"> Telegram response ...</p>
+  <p id="ReadChat"> Reading Outloud ...</p>
+  <div id="images"></div>
+
+</div>
+
+<script type="module">
+//<script>
+
+//import './core-js/stable';
+//import './regenerator-runtime/runtime';
+//import './@clientio/rappid/rappid.css';
+//import './styles.scss';
+//import { App } from './src/classes/App';
+//import { importTreeNode } from './src/actions/tree';
+//import example from './src/example';
+//import { IDEA_USER_COLORS } from './src/theme';
+
+
+  // Function to renderize the map based on the user input
+  window.renderizeMap = function(topic) {
+
+  const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    // Check if a query is provided
+   //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Send a request to the server endpoint with the query parameter
+    fetch(`http://localhost:3000/generate-mindmap?query=${encodeURIComponent(topic)}`) 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data); // Log the response from the server
+            const app = new App(document.getElementById('app'));
+            app.start();
+            importTreeNode(app, data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+  };
+
+// Function to generate mind map based on the user input
+  window.generateSummary = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/displayText?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("summaryChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate keyword based on the user input
+  window.generateKeyword = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/keywords?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("keyChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate keyword based on the user input
+  window.generateTranslation = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/translation?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("translationChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate definition based on the user input
+  window.generateDefinition = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/definition?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("DefinitionChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate definition based on the user input
+  window.generateTelegramNote = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/sendTelegramNote?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("tChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate definition based on the user input
+  window.generateSpeak = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+     // alert('Please enter a query.');
+     // return;
+    //}
+
+    // Make an AJAX request to the server
+    fetch(`/readOutloud?query=${encodeURIComponent(topic)}`)
+      .then(response => response.json())
+      .then(data => {
+        const mindMapContent = data.mindMapContent;
+
+        // Display mind map content
+        document.getElementById("ReadChat").innerText = mindMapContent;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+// Function to generate definition based on the user input
+  window.generateImages = function(topic) {
+    const query = document.getElementById("inputFileName").value;
+
+    console.log(topic)
+
+    //if (!query) {
+    //  alert('Please enter a query.');
+    //  return;
+    //}
+
+    fetch(`/search?query=${encodeURIComponent(topic)}`)
+        .then(response => response.json())
+        .then(urls => {
+          const imagesDiv = document.getElementById('images');
+          urls.forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            imagesDiv.appendChild(img);
+          });
+        })
+        .catch(error => {
+        console.error('Error:', error);
+      });
+
+  };
+
+// Check for parameters in the URL and execute the function
+    const urlParams = new URLSearchParams(window.location.search);
+    const functionName = urlParams.get('functionName');
+    const paramsString = urlParams.get('params');
+  console.log(functionName)
+  console.log(paramsString)
+    const params = paramsString ? JSON.parse(paramsString) : [];
+
+    if (functionName && window[functionName] && typeof window[functionName] === 'function') {
+        window[functionName](...params);
+    }
+</script>
+<script src="bundle.js"></script>
+</body>
+</html>
+

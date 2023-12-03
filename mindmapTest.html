@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+    }
+
+    line.link {
+      fill: none;
+      stroke: #555;
+      stroke-opacity: 0.4;
+    }
+
+    circle.node {
+      fill: #3498db;
+      stroke: #2980b9;
+      stroke-width: 2px;
+    }
+
+    text.label {
+      font-size: 12px;
+      fill: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  d3.json("mindmap.json").then(function(data) {
+    // Assuming your JSON has a "nodes" and "links" array
+    const nodes = data.nodes;
+    const links = data.links;
+
+    const svg = d3.select("body").append("svg")
+      .attr("width", 800)
+      .attr("height", 600);
+
+    const treeLayout = d3.tree().size([800, 600]);
+
+    // Create a hierarchical structure
+    const root = d3.hierarchy({ children: nodes });
+
+    const treeData = treeLayout(root);
+
+    // Position the central node at the middle of the SVG container in height
+    root.x = 300;
+    root.y = 300;
+
+    // Position the child nodes to the left
+    const leftNodes = root.children;
+    const leftAngleStep = (2 * Math.PI) / leftNodes.length;
+    const leftRadius = 150; // Adjust the radius as needed
+
+    leftNodes.forEach((child, index) => {
+      const leftAngle = index * leftAngleStep;
+      child.x = root.x - leftRadius * Math.cos(leftAngle);
+      child.y = root.y - leftRadius * Math.sin(leftAngle);
+    });
+
+    const link = svg.selectAll(".link")
+      .data(treeData.links())
+      .enter().append("line")
+      .attr("class", "link")
+      .attr("stroke-width", 2);
+
+    const node = svg.selectAll(".node")
+      .data(treeData.descendants())
+      .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 10);
+
+    // Add labels to nodes if needed
+    const label = svg.selectAll(".label")
+      .data(treeData.descendants())
+      .enter().append("text")
+      .attr("class", "label")
+      .attr("dy", ".35em")
+      .attr("text-anchor", d => d === root ? "start" : "end")
+      .attr("x", d => d.x + (d === root ? 15 : -15)) // Adjust the offset as needed
+      .attr("y", d => d.y + 4) // Adjust the offset as needed
+      .text(d => d.data.label);
+
+    // Add any other customization or interaction as needed
+  });
+</script>
+
+</body>
+</html>
+

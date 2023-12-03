@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    { "id": 1, "label": "History of Swiss Chocolate" },
+    { "id": 2, "label": "Swiss Chocolate Quality" },
+    { "id": 3, "label": "Major Swiss Chocolate Brands" },
+    { "id": 4, "label": "Cocoa Bean Sourcing" },
+    { "id": 5, "label": "Chocolate Types" },
+    { "id": 6, "label": "Innovation in Swiss Chocolate" },
+    { "id": 7, "label": "Global Export and Market Presence" },
+    { "id": 8, "label": "Tourism and Chocolate" },
+    { "id": 9, "label": "Regulations and Standards" },
+    { "id": 10, "label": "Challenges and Future Trends" }
+  ],
+  "links": [
+    { "source": 1, "target": 2 },
+    { "source": 2, "target": 3 },
+    { "source": 2, "target": 4 },
+    { "source": 2, "target": 5 },
+    { "source": 4, "target": 6 },
+    { "source": 6, "target": 5 },
+    { "source": 6, "target": 7 },
+    { "source": 8, "target": 5 },
+    { "source": 9, "target": 5 },
+    { "source": 10, "target": 5 }
+  ]
+}
+
